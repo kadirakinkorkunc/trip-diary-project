@@ -1,0 +1,12 @@
+version : "3"
+
+services:
+    dj: 
+       container_name: dja 
+       build: django # django's Dockerfile path
+       command: python manage.py runserver 0.0.0.0:90
+       volumes:
+       - ./django:/code
+       
+       ports:
+        - "90:90"
