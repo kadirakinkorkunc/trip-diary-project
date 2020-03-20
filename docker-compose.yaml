@@ -16,3 +16,9 @@ services:
         - "90:90"
        depends_on:
         - db
+      
+    ng:
+        container_name: ngtrip
+        build: angular
+        ports:
+            - "9090:90"
