@@ -12,4 +12,12 @@ export class FeedService {
   public getFeed(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(`${this.API_URL}/api/feed/`);
   }
+
+  public retrievePost(post_id: number): Observable<Post> {
+    return this.httpClient.get<Post>(`${this.API_URL}/api/feed/${post_id}`)
+  }
+
+  public postFeed(post: Post) {
+    return this.httpClient.post(`${this.API_URL}/api/feed/`, post)
+  }
 }

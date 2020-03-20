@@ -1,1 +1,12 @@
 <p>detailed-trip works!</p>
+<p *ngIf="!post">Loading...</p>
+<ul *ngIf="post">
+  <li>
+    <ul>
+      <li>Title : {{post.title}}</li>
+      <li>Place : {{post.place}}</li>
+      <li>Notes : {{post.notes}}</li>
+    </ul>
+  </li>
+
+</ul>
