@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from feedapi import views
 
-url_patterns = [
+urlpatterns = [
   path('api/feed/', views.PostList.as_view(), name="post_list"),
 ]
