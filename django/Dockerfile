@@ -15,4 +15,4 @@ WORKDIR /code
 # copy proj. code
 COPY . /code/
 
-EXPOSE 90
+EXPOSE 80

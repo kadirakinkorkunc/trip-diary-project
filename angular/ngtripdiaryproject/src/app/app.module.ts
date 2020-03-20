@@ -3,14 +3,23 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { FeedComponent } from './feed/feed.component';
+import { AddTripComponent } from './feed/add-trip/add-trip.component';
+import { LoginComponent } from './login/login.component';
+import { DetailedTripComponent } from './feed/detailed-trip/detailed-trip.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FeedComponent,
+    AddTripComponent,
+    LoginComponent,
+    DetailedTripComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
