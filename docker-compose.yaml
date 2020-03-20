@@ -1,6 +1,10 @@
 version : "3"
 
 services:
+    db:
+       image: postgres
+       environment:
+        - "POSTGRES_HOST_AUTH_METHOD=trust"
     dj: 
        container_name: dja 
        build: django # django's Dockerfile path
@@ -10,3 +14,5 @@ services:
        
        ports:
         - "90:90"
+       depends_on:
+        - db
