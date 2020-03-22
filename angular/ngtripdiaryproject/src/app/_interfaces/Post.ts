@@ -1,4 +1,4 @@
-import { Member } from "./Member";
+import { JWTPayload } from "./JWTPayload";
 
 export interface Post {
   id:number;
@@ -9,5 +9,5 @@ export interface Post {
   end_date:Date;
   created_at:Date;
 
-  owner:Member
+  owner:JWTPayload;
 }

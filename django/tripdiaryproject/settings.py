@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -132,3 +134,22 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200'
 )
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+
+    ),
+    'DEFAULT_AUTHENTICATON_CLASSES':(
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+       # 'rest_framework.authentication.TokenAuthentication'
+       # 'rest_framework.authentication.SessionAuthentication',
+       # 'rest_framework.authentication.BasicAuthentication',
+    ),
+  #  'NON_FIELD_ERRORS_KEY': 'global',
+}
+
+#JWT SETTINGS
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': timedelta(days=2)
+}

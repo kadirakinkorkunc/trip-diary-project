@@ -1,1 +1,37 @@
-<p>login works!</p>
+<!-- <p>login works!</p>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <label for="username">Username</label>
+  <input type="text" formControlName="username" required>
+  <br><br>
+  <label for="password">Password</label>
+  <input type="password" formControlName="password" required>
+  <br><br>
+  <button type="submit">Login</button>
+</form> -->
+<!-- ----------------------------------------------------------------------------------------------------------------------->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<div class=container>
+  <div class="login-container">
+    <div id="output"></div>
+    <div class="avatar"></div>
+    <div class="form-box">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="f.username.invalid && (f.username.dirty || f.username.touched)" class="alert alert-danger">
+          username required!</div>
+        <input formControlName="username" name="user" type="text" placeholder="username" required>
+        <input formControlName="password" type="password" placeholder="password" required><br><br>
+        <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger">
+          password required!</div>
+        <div class="alert alert-danger" *ngIf="error">wrong username or password!</div>
+        <button [disabled]="f.username.untouched || f.password.untouched" class="btn btn-info btn-block login"
+          type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------->

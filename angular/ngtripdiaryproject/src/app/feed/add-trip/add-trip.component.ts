@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../../interfaces/Post';
+import { Post } from '../../_interfaces/Post';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { FeedService } from 'src/app/services/feed.service';
+import { FeedService } from 'src/app/_services/feed.service';
 @Component({
   selector: 'app-add-trip',
   templateUrl: './add-trip.component.html',

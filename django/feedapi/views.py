@@ -5,17 +5,24 @@ from .models import Post
 from .serializers import PostSerializer
 from django.http import Http404
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 # Create your views here.
 
 # PostList -> view all posts and create post
 class PostList(APIView):
+  # Authentication and authorization settings
+  permission_classes = [IsAuthenticated]
+  authentication_classes = [JSONWebTokenAuthentication]
 
-  """
-  Gets all posts
-  """
+  
   def get(self, request, format = None ):
+    """
+    Gets all posts
+    """
     posts = Post.objects.all()
     serializer = PostSerializer(posts, many=True)
+    print("daaaaaaaaaaaaa_>",serializer.data)
     return Response(serializer.data)
 
   def post(self, request, format =None):
@@ -30,6 +37,10 @@ class PostList(APIView):
 
 # PostDetail -> get a post, delete and put
 class PostDetail(APIView):
+    # Authentication and authorization settings
+  permission_classes = [IsAuthenticated]
+  authentication_classes = [JSONWebTokenAuthentication]
+
   def get_post(self, post_id):
     """
     Helper for getting a post

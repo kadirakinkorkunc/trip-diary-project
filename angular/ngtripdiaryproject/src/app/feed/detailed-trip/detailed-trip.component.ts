@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
-import { FeedService } from 'src/app/services/feed.service';
-import { Post } from '../../interfaces/Post'
+import { ActivatedRoute, Router } from '@angular/router'
+import { FeedService } from 'src/app/_services/feed.service';
+import { Post } from '../../_interfaces/Post'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class DetailedTripComponent implements OnInit {
   post_id: any
   post: Post
-  constructor(private activatedRoute: ActivatedRoute, private feedService: FeedService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private feedService: FeedService) { }
 
   ngOnInit(): void {
     this.post_id = this.activatedRoute.snapshot.params['post_id'];
@@ -21,9 +21,10 @@ export class DetailedTripComponent implements OnInit {
   }
 
   public getPost() {
-    this.feedService.retrievePost(this.post_id).pipe(map(data => { this.post = data })).subscribe(result => {
-      console.log(result);
-    });
+      this.feedService.retrievePost(this.post_id).pipe(map(data => {
+        this.post = data;
+      })).subscribe(result => {
+        console.log("result->",result);
+      });
+    }
   }
-
-}
