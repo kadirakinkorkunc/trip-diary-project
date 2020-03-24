@@ -18,6 +18,6 @@ export class FeedService {
   }
 
   public postFeed(post: Post) {
-    return this.httpClient.post(`${this.API_URL}/api/feed/`, post)
+    return this.httpClient.post(`${this.API_URL}/api/feed/`, post, { observe: 'response' })
   }
 }

@@ -6,4 +6,8 @@ from .models import Post
 class PostSerializer(serializers.ModelSerializer):
   class Meta:
     model = Post
-    fields = '__all__' # all Post variables are defined with __all__
+    fields = '__all__'
+  
+
+
+

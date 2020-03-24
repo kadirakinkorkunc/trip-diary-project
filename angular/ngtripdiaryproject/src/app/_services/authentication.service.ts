@@ -4,6 +4,7 @@ import { tap, shareReplay } from 'rxjs/operators';
 import * as JwtDecode from 'jwt-decode';
 import * as moment from 'moment';
 import { JWTPayload } from '../_interfaces/JWTPayload';
+import { Observable } from 'rxjs';
 // logs in and out, notifies other components with subscription
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,6 @@ export class AuthenticationService {
     const token = authResult.token;
     const payload = <JWTPayload>JwtDecode(token);
     const expiresAt = moment.unix(payload.exp);
-
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
@@ -31,7 +31,6 @@ export class AuthenticationService {
     return this.http.post(`${this.URL_API}/login/`, { username, password })
       .pipe(tap(
         response => {
-          console.log("API CALL RESPONSE FOR LOGIN => ", response);
           this.setSession(response);
         }
       ),
@@ -39,11 +38,14 @@ export class AuthenticationService {
       );
   }
 
+  getLoggedInUser():Observable<JWTPayload> {
+    return this.http.get<JWTPayload>(`${this.URL_API}/currentuser/`);
+  }
+
   logout() {
 
     localStorage.removeItem('token');
     localStorage.removeItem('expires_at');
-    console.log("CIKIS YAPILDI ");
   }
 
   refreshToken() {
@@ -52,7 +54,7 @@ export class AuthenticationService {
         `${this.URL_API}/refresh-token/`,
         { token: this.token }
       ).pipe(
-        tap(response => { this.setSession(response); console.log("response for refresh token=>", response); }),
+        tap(response => { this.setSession(response) }),
         shareReplay(),
       ).subscribe();
     }
@@ -61,7 +63,6 @@ export class AuthenticationService {
   getExpiration() {
     const expiration = localStorage.getItem('expires_at');
     const expiresAt = JSON.parse(expiration);
-    console.log("expires=>", moment(expiresAt).calendar());
     return moment(expiresAt);
   }
 

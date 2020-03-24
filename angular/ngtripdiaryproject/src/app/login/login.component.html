@@ -10,9 +10,6 @@
   <button type="submit">Login</button>
 </form> -->
 <!-- ----------------------------------------------------------------------------------------------------------------------->
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <div class=container>
   <div class="login-container">
@@ -27,11 +24,13 @@
         <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)" class="alert alert-danger">
           password required!</div>
         <div class="alert alert-danger" *ngIf="error">wrong username or password!</div>
-        <button [disabled]="f.username.untouched || f.password.untouched" class="btn btn-info btn-block login"
-          type="submit">Login</button>
+        <button class="btn btn-info btn-block login" type="submit">Login</button>
       </form>
     </div>
   </div>
 </div>
+
+
+<a class="logo" href="/"><img width="300px" height="100px" src="assets/logo.png"></a>
 
 <!-- ----------------------------------------------------------------------------------------------------------------------->

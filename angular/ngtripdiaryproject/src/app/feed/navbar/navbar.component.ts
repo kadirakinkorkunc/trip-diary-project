@@ -8,18 +8,21 @@ import { RouteReuseStrategy, Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  isLoggedIn= false;
   constructor(
     private authService:AuthenticationService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  
 
 }

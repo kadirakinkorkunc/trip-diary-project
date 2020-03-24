@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authenticationService.isLoggedIn()) {
-      console.log("isLoggedinCalisti ve true dondu");
       this.authenticationService.refreshToken();
       return true
     } else {

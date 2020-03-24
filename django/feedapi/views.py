@@ -29,11 +29,16 @@ class PostList(APIView):
     """
     Creates a post
     """
-    serializer = PostSerializer(data = request.data)
+    
+    user = request.data                          ## copy dictionary to a variable
+    user.update( {'owner': request.user.id})     ## attach authenticated user to post end
+
+    serializer = PostSerializer(data = user)      ## serialize the dict
     if serializer.is_valid():
-      serializer.save()
+      serializer.save()                           ## if data valid save it.
       return Response(serializer.data, status = status.HTTP_201_CREATED)
-    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) # if it's not raise http 400
 
 # PostDetail -> get a post, delete and put
 class PostDetail(APIView):

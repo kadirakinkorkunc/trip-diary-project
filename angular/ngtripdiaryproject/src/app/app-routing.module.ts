@@ -15,7 +15,7 @@ const routes: Routes = [
     path: '', component: FeedComponent, canActivate: [AuthGuard], children: [
       { path: '', component: MainFeedComponent, pathMatch: 'full' },
       { path: 'create', component: AddTripComponent },
-      { path: ':post_id', component: DetailedTripComponent },
+      { path: 'post/:post_id', component: DetailedTripComponent },
       {
         path: '**',
         pathMatch: 'full',

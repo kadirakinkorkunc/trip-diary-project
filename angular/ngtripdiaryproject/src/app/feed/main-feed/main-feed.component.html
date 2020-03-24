@@ -1,10 +1,26 @@
-<ul *ngIf="isLoggedIn">
-  <li *ngFor="let post of feed$ | async">
-    <ul>
-      <li>Title : {{post.title}}</li>
-      <li>Place : {{post.place}}</li>
-      <li>Notes : {{post.notes}}</li>
-      <br><br>
-    </ul>
-  </li>
-</ul>
+<div class="welcome">
+  <h3>Hi {{loggedInUser?.first_name}} {{loggedInUser?.last_name}}! Here is the latest trips for you;</h3>
+</div>
+<hr>
+<hr>
+
+<ngb-pagination id="pagination" [collectionSize]="(feed$ | async)?.length" #numPages [pageSize]="itemsPerPage"
+  [(page)]="currentPage" (pageChange)="onPageChange(currentPage)" [rotate]="true" [boundaryLinks]="true">
+</ngb-pagination>
+
+<div *ngFor="let post of feed$ | async | slice: pageSize | slice: 0:itemsPerPage " class="container" id="post">
+  <div class="singlePost">
+    <h1>{{post.title}}</h1>
+    <p>{{ post.notes | slice:0:200 }}{{post.notes.length > 200 ? '...' : ''}}</p>
+
+    <div>
+      <span id="postCreated" class="badge">Posted {{post.created_at}}</span>
+      <div class="pull-right"><span class="label label-default">alice</span> <span
+          class="label label-primary">story</span> <span class="label label-success">blog</span> <span
+          class="label label-info">personal</span> <span class="label label-warning">Warning</span>
+        <span class="label label-danger">Danger</span></div>
+    </div>
+    <hr>
+    <hr>
+  </div>
+</div>

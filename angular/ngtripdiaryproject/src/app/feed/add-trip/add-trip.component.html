@@ -1,6 +1,4 @@
-<p>add-trip works!</p>
-
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
   <label for="title">Title</label>
   <input type="text" formControlName="title" required>
   <br><br>
@@ -17,4 +15,39 @@
   <input type="date" formControlName="end_date" required>
   <br><br>
   <button type="submit">Send to the Feed</button>
+</form> -->
+
+
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>pick your best title!</mat-label>
+    <input formControlName="title" matInput>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>where did you visited?</mat-label>
+    <input formControlName="place" matInput>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Choose start date</mat-label>
+    <input formControlName="start_date" matInput [matDatepicker]="startpicker">
+    <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+    <mat-datepicker #startpicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field id="end_date_picker">
+    <mat-label>Choose end date</mat-label>
+    <input formControlName="end_date" matInput [matDatepicker]="endpicker">
+    <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+    <mat-datepicker #endpicker></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>tell us what you want about your trip! you can extend the text area from right down corner</mat-label>
+    <textarea formControlName="notes" matInput></textarea>
+  </mat-form-field>
+
+  <button class="button" type="submit" mat-raised-button color="primary">Share with other</button>
 </form>

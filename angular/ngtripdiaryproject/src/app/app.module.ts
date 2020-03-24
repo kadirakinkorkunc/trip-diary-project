@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
@@ -16,6 +15,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './feed/navbar/navbar.component';
 import { MainFeedComponent } from './feed/main-feed/main-feed.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MaterialModule } from './material.module';
+
 
 @NgModule({
   declarations: [
@@ -27,17 +29,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
     NavbarComponent,
     MainFeedComponent,
     NotFoundComponent,
-
-
   ],
   imports: [
-    MatDialogModule,
+    MaterialModule,
+    NgbModule,
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthenticationService,

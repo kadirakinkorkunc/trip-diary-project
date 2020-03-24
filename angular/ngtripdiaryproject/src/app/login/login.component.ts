@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(
+    private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
@@ -25,18 +27,26 @@ export class LoginComponent implements OnInit {
   ) {
     //redirect home if already logged in
     if (authenticationService.isLoggedIn()) {
-      console.log("isLoggedIn() => already logged in")
       router.navigate(['/']);
     }
   }
 
   ngOnInit(): void {
+    this.openSnackBar();
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
     //get returl url  or redirect to /
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+  openSnackBar() {
+    const message = "You must be logged in to see content!";
+    const action = "OK";
+    this._snackBar.open(message, action, {
+      duration: 4000,
+      verticalPosition: 'top',
+    })
   }
 
   //easy way to access fields
@@ -46,19 +56,17 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.loginForm.invalid) { console.log("if code block => invalid credentials"); return; }
+    if (this.loginForm.invalid) { return; }
 
     this.loading = true;
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .subscribe(
         success => {
-          console.log("succesfull login ->", this.returnUrl);
           this.router.navigate([`${this.returnUrl}`]); // this navigation doesnt work or works but doesnt auto refresh the page ??
         },
         error => {
           this.error = error;
           this.loading = false;
-          console.log("errors =>", error);
         }
       );
   }
