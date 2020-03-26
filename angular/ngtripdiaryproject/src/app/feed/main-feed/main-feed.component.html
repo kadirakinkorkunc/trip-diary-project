@@ -1,5 +1,6 @@
 <div class="welcome">
-  <h3>Hi {{loggedInUser?.first_name}} {{loggedInUser?.last_name}}! Here is the latest trips for you;</h3>
+  <h3 id="pagination">Hi {{loggedInUser?.first_name}} {{loggedInUser?.last_name}}! Here is the latest trips for you;
+  </h3>
 </div>
 <hr>
 <hr>
@@ -8,19 +9,63 @@
   [(page)]="currentPage" (pageChange)="onPageChange(currentPage)" [rotate]="true" [boundaryLinks]="true">
 </ngb-pagination>
 
-<div *ngFor="let post of feed$ | async | slice: pageSize | slice: 0:itemsPerPage " class="container" id="post">
+<!-- <div *ngFor="let post of feed$ | async | slice: pageSize | slice: 0:itemsPerPage " class="container" id="post">
   <div class="singlePost">
-    <h1>{{post.title}}</h1>
+    <a href="/post/{{post.id}}">
+      <h1>{{post.title}}</h1>
+    </a>
     <p>{{ post.notes | slice:0:200 }}{{post.notes.length > 200 ? '...' : ''}}</p>
 
     <div>
-      <span id="postCreated" class="badge">Posted {{post.created_at}}</span>
-      <div class="pull-right"><span class="label label-default">alice</span> <span
-          class="label label-primary">story</span> <span class="label label-success">blog</span> <span
-          class="label label-info">personal</span> <span class="label label-warning">Warning</span>
-        <span class="label label-danger">Danger</span></div>
+      <div id="metaInfo" class="pull-right">
+        <div>
+          <span id="postWrittenBy" class="badge">Written by {{ post?.owner?.username  }} </span>
+        </div>
+        <br>
+        <span id="postCreatedBy" class="badge">Posted {{post.created_at}}</span>
+      </div>
+      <div *ngFor="let tag of post?.tags; let i = index" class="pull-left">
+        <span *ngIf="i < 6" id="tags" class="label {{classForTag[i]}}">{{tag}}</span>
+        <span *ngIf="i > 5" id="tags" class="label label-success"> {{tag}}</span>
+      </div>
     </div>
-    <hr>
-    <hr>
-  </div>
-</div>
+  </div> -->
+
+
+<div *ngFor="let post of feed$ | async | slice: pageSize | slice: 0:itemsPerPage " id="pagination">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-9 post">
+          <div class="row">
+            <div class="col-md-12 post-title">
+              <h4 class="title">
+                <strong>{{post.title}}</strong>
+              </h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 post-header-line">
+              <span class="glyphicon glyphicon-user"></span>by <a href="#">{{post?.owner?.first_name}}
+                {{post?.owner?.last_name}}</a> | <span class="glyphicon glyphicon-calendar">
+              </span>{{post.created_at}} | <span class="glyphicon glyphicon-comment"></span>
+              <span>Tags:</span>
+              <span id="tags" *ngFor="let tag of post?.tags; let i = index"
+                class="label {{classForTag[i]}}">{{tag}}</span>
+
+            </div>
+          </div>
+        </div>
+        <div class="row post-content">
+          <div class="col-md-3 content-image">
+
+          </div>
+          <div class="col-md-9 notes">
+            <p>
+              {{ post.notes | slice:0:200 }}{{post.notes.length > 200 ? '...' : ''}}
+            </p>
+            <p>
+              <a class="btn btn-read-more" href="/post/{{post.id}}">Read more</a></p>
+          </div>
+        </div>
+      </div>

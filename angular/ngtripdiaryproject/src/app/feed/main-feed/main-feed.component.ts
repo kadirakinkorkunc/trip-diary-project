@@ -17,8 +17,9 @@ export class MainFeedComponent implements OnInit {
   loggedInUser: JWTPayload;
   isLoggedIn = false;
   currentPage = 1;
-  itemsPerPage= 5;
+  itemsPerPage = 5;
   pageSize: number
+  classForTag = ['label-success', 'label-default', 'label-warning', 'label-success', 'label-danger']
 
   constructor(private feedService: FeedService, private authService: AuthenticationService, private router: Router) {
     this.isLoggedIn = authService.isLoggedIn();
@@ -46,7 +47,6 @@ export class MainFeedComponent implements OnInit {
   // get the logged in user data
   public getLoggedUser() {
     this.authService.getLoggedInUser().pipe(map(data => {
-      console.log(data)
       this.loggedInUser = data;
     })).subscribe(result => { });;
     console.log("loggedinuser-->", this.loggedInUser);

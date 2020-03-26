@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Post
-from .serializers import PostSerializer
+from .models import *
+from .serializers import *
 from django.http import Http404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -22,26 +22,25 @@ class PostList(APIView):
     """
     posts = Post.objects.all()
     serializer = PostSerializer(posts, many=True)
-    print("daaaaaaaaaaaaa_>",serializer.data)
     return Response(serializer.data)
 
   def post(self, request, format =None):
     """
     Creates a post
     """
-    
-    user = request.data                          ## copy dictionary to a variable
-    user.update( {'owner': request.user.id})     ## attach authenticated user to post end
-
-    serializer = PostSerializer(data = user)      ## serialize the dict
+    post = request.data                          ## copy dictionary to a variable
+    authenticatedUserDataAsDict =  request.user.__class__.objects.filter(pk=request.user.id).values().first()
+    post['owner'] = authenticatedUserDataAsDict        ## attach authenticated user to post end
+    serializer = PostSerializer(data = post)      ## serialize the dict
     if serializer.is_valid():
       serializer.save()                           ## if data valid save it.
       return Response(serializer.data, status = status.HTTP_201_CREATED)
-
+    print("not valid->",serializer.errors)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) # if it's not raise http 400
 
 # PostDetail -> get a post, delete and put
 class PostDetail(APIView):
+
     # Authentication and authorization settings
   permission_classes = [IsAuthenticated]
   authentication_classes = [JSONWebTokenAuthentication]
@@ -61,6 +60,7 @@ class PostDetail(APIView):
     """
     post = self.get_post(post_id)
     serializer = PostSerializer(post)
+    print(serializer.data)
     return Response(serializer.data)
 
   def put(self, request, post_id):
@@ -82,4 +82,15 @@ class PostDetail(APIView):
     post.delete()
     return Response( status = status.HTTP_204_NO_CONTENT)
 
-    
+class TagList(APIView):
+      # Authentication and authorization settings
+  permission_classes = [IsAuthenticated]
+  authentication_classes = [JSONWebTokenAuthentication]
+
+  """
+  Get all of the tags
+  """
+  def get(self, request, format = None):
+    tags = Tag.objects.all()
+    serializer = TagSerializer(tags, many=True)
+    return Response(serializer.data, status = status.HTTP_200_OK)

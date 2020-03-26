@@ -1,4 +1,4 @@
-<p>detailed-trip works!</p>
+<!-- <p>detailed-trip works!</p>
 <p *ngIf="!post">Loading...</p>
 <ul *ngIf="post">
   <li>
@@ -6,7 +6,45 @@
       <li>Title : {{post.title}}</li>
       <li>Place : {{post.place}}</li>
       <li>Notes : {{post.notes}}</li>
+      <li>Written by : {{post?.owner?.username}}</li>
     </ul>
   </li>
 
-</ul>
+</ul> -->
+<section class="banner-section">
+</section>
+<section class="post-content-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 post-title-block">
+
+        <h1 class="text-center">{{post.title}}</h1>
+        <ul class="list-inline text-center">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-12 post-content">
+        <p class="lead">{{post.notes}}</p>
+        <div class="image-block">
+          <img src="https://static.pexels.com/photos/268455/pexels-photo-268455.jpeg" class="img-responsive">
+        </div>
+
+      </div>
+      <div class="col-lg-3  col-md-3 col-sm-12">
+
+        <div class="well about_author post-content">
+          <h2>About Author</h2>
+          <img src="" class="img-rounded" />
+          <p>{{post?.owner?.first_name}} {{post?.owner?.last_name}}</p>
+          <p>Member since {{post?.owner?.date_joined | slice:0:10}}</p>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div> <!-- /container -->
+</section>

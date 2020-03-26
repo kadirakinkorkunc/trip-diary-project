@@ -5,6 +5,9 @@
   padding: 6%;
   font-size: x-large;
 }
+.example-chip-list {
+  width: 100%;
+}
 .button {
   width: 100%;
   height: 100px;

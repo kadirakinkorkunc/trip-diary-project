@@ -5,6 +5,8 @@ import { Post } from '../../_interfaces/Post'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
+import { JWTPayload } from 'src/app/_interfaces/JWTPayload';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 @Component({
   selector: 'app-detailed-trip',
   templateUrl: './detailed-trip.component.html',
@@ -13,16 +15,28 @@ import { FormControl, Validators } from '@angular/forms';
 export class DetailedTripComponent implements OnInit {
   post_id: any
   post: Post
-  constructor( private activatedRoute: ActivatedRoute, private feedService: FeedService) { }
+  postOwner: JWTPayload
+  constructor(private authService: AuthenticationService, private activatedRoute: ActivatedRoute, private feedService: FeedService) { }
 
   ngOnInit(): void {
     this.post_id = this.activatedRoute.snapshot.params['post_id'];
     this.getPost();
   }
+  isNull(val) {
+    if (typeof (val) === null) {
+      return true;
+    } else { return false; }
+  }
 
   public getPost() {
     this.feedService.retrievePost(this.post_id).pipe(map(data => {
       this.post = data;
-    })).subscribe(result => { });
+      this.postOwner = this.post.owner;
+      console.log(this.post.owner.username);
+    })).subscribe(
+    );
+
+
+
   }
 }
