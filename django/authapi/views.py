@@ -26,7 +26,6 @@ class UserDetail(APIView):
     """
     user = self.get_user(user_id)
     serializer = UserSerializer(user)
-    print("response --> ", serializer.data)
     return Response(serializer.data)
 
   
@@ -42,7 +41,6 @@ class LoggedInUserDetail(APIView):
     """
     user = request.user
     serializer = UserSerializer(user)
-    print("user -->",serializer.data)
     return Response(serializer.data)
 
     
