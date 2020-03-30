@@ -47,7 +47,7 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
     consumer:
-        container_name : kafkaconsumer
+        container_name : springkafkaconsumer
         build: kafkaconsumer
         ports:
             - "8070:8070"
