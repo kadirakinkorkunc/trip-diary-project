@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @Configuration
 public class KafkaconsumerApplication {
-
 	public static void main(String[] args) {
+
 		SpringApplication.run(KafkaconsumerApplication.class, args);
 	}
 

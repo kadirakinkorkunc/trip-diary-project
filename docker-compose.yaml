@@ -36,6 +36,7 @@ services:
         ports:
             - 9092:9092
         environment:
+            KAFKA_LOG_DIRS: "/kafka/kafka-logs"
             KAFKA_BROKER_ID: 1
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
             KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
@@ -43,8 +44,10 @@ services:
             KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
             KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
             KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
     consumer:
-        image: kafkaconsumer:latest
+        image: odev3/kafkaconsumer:latest
         ports:
             - "8070:8070"
         depends_on:

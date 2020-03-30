@@ -7,7 +7,8 @@ class TagSerializer(serializers.ModelSerializer):
   class Meta:
     model = Tag
     fields = ('id','name')
-  
+
+
 class PostSerializer(serializers.ModelSerializer):
   tags = serializers.SlugRelatedField(
         many=True,

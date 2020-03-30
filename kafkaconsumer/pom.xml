@@ -50,7 +50,26 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.13.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		</dependencies>
+
 
 	<build>
 		<plugins>
@@ -65,7 +84,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>1.2.2</version>
 				<configuration>
-					<imageName>kafkaconsumer</imageName>
+					<imageName>odev3/kafkaconsumer</imageName>
 					<baseImage>java:8</baseImage>
 					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
 					<resources>
@@ -77,8 +96,6 @@
 					</resources>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
-
 </project>

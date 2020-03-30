@@ -10,6 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from _kafkaproducers import visitations as kafka
 from django.contrib.auth.admin import User
+import pytz
+from django.utils import timezone
 
 # Create your views here.
 
@@ -55,9 +57,9 @@ def send_data(visitor_user:User, owner_user:User, visitedPost:Post, timestamp:da
   
 
   visitor = visitor_user.first_name + " " + visitor_user.last_name + "(username:" + visitor_user.username + ") "
-  owner = owner_user.first_name + owner_user.last_name + "(username:" + owner_user.username + ") "
+  owner = owner_user.first_name + " " + owner_user.last_name + "(username:" + owner_user.username + ")"
   post = "'" + visitedPost.title + "' titled post."
-  message = timestamp + "->" + visitor + "read" + owner + " 's " + post
+  message =  visitor + "read " + owner + "'s " + post
 
   result = producer.send( 'visitations', message.encode() )
 
@@ -95,7 +97,7 @@ class PostDetail(APIView):
     post = self.get_post(post_id)
     serializer = PostSerializer(post)
     
-    send_data(post.owner, request.user, post, datetime.now().strftime("%d/%m/%Y %H:%M:%S") )
+    send_data(post.owner, request.user, post,  timezone.now().strftime("%d/%m/%Y %H:%M:%S") )
 
     return Response(serializer.data)
 
