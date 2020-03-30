@@ -47,7 +47,8 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
     consumer:
-        image: odev3/kafkaconsumer:latest
+        container_name : kafkaconsumer
+        build: kafkaconsumer
         ports:
             - "8070:8070"
         depends_on:
