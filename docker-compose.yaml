@@ -5,6 +5,10 @@ services:
        image: postgres
        environment:
         - "POSTGRES_HOST_AUTH_METHOD=trust"
+       volumes:
+        - psql-data:/var/lib/postgresql/data
+       ports:
+        - 5432:5432
 
     dj: 
        container_name: dja 
@@ -67,3 +71,5 @@ services:
           SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
           TZ: "Asia/Istanbul"
         restart: always
+volumes:
+    psql-data:
