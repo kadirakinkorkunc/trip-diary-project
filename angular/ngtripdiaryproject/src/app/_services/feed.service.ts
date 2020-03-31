@@ -7,11 +7,11 @@ import { Tag } from '../_interfaces/Tag';
   providedIn: 'root'
 })
 export class FeedService {
-  API_URL = 'http://localhost:80'
+  API_URL = 'http://localhost:90'
   constructor(private httpClient: HttpClient) { }
 
   // get tags for creation form input chips
-  public getTagsForChips():Observable<Tag[]>{
+  public getTagsForChips(): Observable<Tag[]> {
     return this.httpClient.get<Tag[]>(`${this.API_URL}/api/feed/tags`);
   }
 
