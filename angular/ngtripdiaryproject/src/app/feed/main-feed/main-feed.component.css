@@ -2,6 +2,8 @@
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700');
 .notes{
   float: left;
+  word-wrap: break-word;
+
 }
 .content-image{
   float: left;

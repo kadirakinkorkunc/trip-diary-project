@@ -38,7 +38,7 @@ export class AuthenticationService {
       );
   }
 
-  getLoggedInUser():Observable<JWTPayload> {
+  getLoggedInUser(): Observable<JWTPayload> {
     return this.http.get<JWTPayload>(`${this.URL_API}/currentuser/`);
   }
 

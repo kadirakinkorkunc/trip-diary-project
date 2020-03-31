@@ -117,7 +117,7 @@ export class AddTripComponent implements OnInit {
     this.postForm.controls['end_date'].setValue(pipe.transform(end_date, 'dd/MM/yyyy'));
     // above part is for django model transformation, django models.DateField doesn't accept the default ng date format.
     // so i redesigned in this part, if i corret to django i must override the base methods so i didn't.
-
+    console.log("giden deger->", this.postForm.value)
     this.feedService.postFeed(this.postForm.value)
       .subscribe((response) => {
         if (response.status == 201) {

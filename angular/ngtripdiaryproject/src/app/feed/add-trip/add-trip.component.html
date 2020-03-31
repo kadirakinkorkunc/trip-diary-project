@@ -28,7 +28,7 @@
     <mat-label>tell us what you want about your trip! you can extend the text area from right down corner</mat-label>
     <textarea formControlName="notes" matInput></textarea>
   </mat-form-field>
-  <div *ngIf="f.notes.errors">
+  <div *ngIf="f.notes.errors && f.notes.touched">
     This part must be at least 250 characters long.
   </div>
 

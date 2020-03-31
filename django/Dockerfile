@@ -15,4 +15,6 @@ WORKDIR /code
 # copy proj. code
 COPY . /code/
 
-EXPOSE 80
+#container listens on the specified network ports at runtime.
+EXPOSE 90
+

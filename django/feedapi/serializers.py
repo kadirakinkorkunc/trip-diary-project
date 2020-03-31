@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from authapi.serializers import UserSerializer
+from django.contrib.auth import get_user_model
 
 #modelserializers handle the data for us conversion between python objects with others like json
 class TagSerializer(serializers.ModelSerializer):
@@ -20,6 +21,26 @@ class PostSerializer(serializers.ModelSerializer):
   class Meta:
     model = Post
     fields = ('title','place','notes','start_date','end_date','created_at','id','owner','tags')
+
+  def create(self, validated_data):
+    owner_data = validated_data.pop('owner')
+    print("def(create,owner_data):",owner_data)
+    popped_tags = validated_data.pop('tags')
+    print("def(create,tags):",popped_tags)
+    username = owner_data.pop('username')
+    print("def(create,username):",username)
+    owner = get_user_model().objects.get_or_create(username = username)[0]
+    post = Post.objects.create(owner=owner, **validated_data)
+    post.tags.set(popped_tags)
+    return post
+
+  def update(self, instance, validated_data):
+    owner_data = validated_data.pop('owner')
+    username = owner_data.pop('username')
+    owner = get_user_model().objects.get_or_create(username=username)[0]
+    instance.owner = owner
+    instance.name = validated_data['name']
+    return instance
 
 
 

@@ -39,6 +39,7 @@ class PostList(APIView):
     post['owner'] = authenticatedUserDataAsDict        ## attach authenticated user to post end
     serializer = PostSerializer(data = post)      ## serialize the dict
     if serializer.is_valid():
+      print("def post(),serialazer :",serializer)
       serializer.save()                           ## if data valid save it.
       return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) # if it's not raise http 400
@@ -47,15 +48,9 @@ class PostList(APIView):
 def send_data(visitor_user:User, owner_user:User, visitedPost:Post, timestamp:date):
   from kafka.errors import KafkaError
   from kafka import KafkaProducer
-  print("visitoruser->",visitor_user)
-  print("owneruser->",owner_user)
-  print("post->",visitedPost)
-  print("visitoruser->",visitor_user)
-
 
   producer = KafkaProducer( bootstrap_servers = ('kafka:29092') , api_version = (0,10,2))
   
-
   visitor = visitor_user.first_name + " " + visitor_user.last_name + "(username:" + visitor_user.username + ") "
   owner = owner_user.first_name + " " + owner_user.last_name + "(username:" + owner_user.username + ")"
   post = "'" + visitedPost.title + "' titled post."
@@ -65,11 +60,8 @@ def send_data(visitor_user:User, owner_user:User, visitedPost:Post, timestamp:da
 
   try:
     record_metadata = result.get(timeout=10)
-    print("RECORD METADATA ->", record_metadata)
   except KafkaError:
     print("error->",KafkaError.__dict__.values())
-    # Decide what to do if produce request failed...
-
     pass
 
 

@@ -5,12 +5,14 @@ services:
        image: postgres
        environment:
         - "POSTGRES_HOST_AUTH_METHOD=trust"
+
     dj: 
        container_name: dja 
        build: django # django's Dockerfile path
        command: python manage.py runserver 0.0.0.0:90
+
        volumes:
-       - ./django:/code
+        - ./django:/code
        
        ports:
         - "90:90"
@@ -22,6 +24,8 @@ services:
         build: angular
         ports:
             - "8080:80"
+ 
+
             
     zookeeper:
         image: confluentinc/cp-zookeeper:latest
@@ -51,8 +55,11 @@ services:
         build: kafkaconsumer
         ports:
             - "8070:8070"
+        volumes:
+            - ./logs:/logs
         depends_on:
           - kafka
         environment:
           SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+          TZ: "Asia/Istanbul"
         restart: always
