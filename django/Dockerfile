@@ -12,8 +12,11 @@ RUN pip install -r /requirements.txt
 RUN mkdir /code
 WORKDIR /code
 
+
 # copy proj. code
 COPY . /code/
+
+
 
 #container listens on the specified network ports at runtime.
 EXPOSE 90

@@ -9,7 +9,7 @@ services:
     dj: 
        container_name: dja 
        build: django # django's Dockerfile path
-       command: python manage.py runserver 0.0.0.0:90
+       command: bash -c "while !</dev/tcp/db/5432; do sleep 1; done; python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:90"
 
        volumes:
         - ./django:/code
@@ -18,6 +18,7 @@ services:
         - "90:90"
        depends_on:
         - db
+
       
     ng:
         container_name: ngtrip
@@ -55,6 +56,7 @@ services:
     consumer:
         container_name : springkafkaconsumer
         build: kafkaconsumer
+        command: bash -c "while !</dev/tcp/kafka/29092; do >&2 echo 'Waiting for kafka to up...' sleep 1; done;"
         ports:
             - "8070:8070"
         volumes:

@@ -39,30 +39,11 @@ class PostList(APIView):
     post['owner'] = authenticatedUserDataAsDict        ## attach authenticated user to post end
     serializer = PostSerializer(data = post)      ## serialize the dict
     if serializer.is_valid():
-      print("def post(),serialazer :",serializer)
       serializer.save()                           ## if data valid save it.
       return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST) # if it's not raise http 400
 
 
-def send_data(visitor_user:User, owner_user:User, visitedPost:Post, timestamp:date):
-  from kafka.errors import KafkaError
-  from kafka import KafkaProducer
-
-  producer = KafkaProducer( bootstrap_servers = ('kafka:29092') , api_version = (0,10,2))
-  
-  visitor = visitor_user.first_name + " " + visitor_user.last_name + "(username:" + visitor_user.username + ") "
-  owner = owner_user.first_name + " " + owner_user.last_name + "(username:" + owner_user.username + ")"
-  post = "'" + visitedPost.title + "' titled post."
-  message =  visitor + "read " + owner + "'s " + post
-
-  result = producer.send( 'visitations', message.encode() )
-
-  try:
-    record_metadata = result.get(timeout=10)
-  except KafkaError:
-    print("error->",KafkaError.__dict__.values())
-    pass
 
 
 
@@ -89,7 +70,7 @@ class PostDetail(APIView):
     post = self.get_post(post_id)
     serializer = PostSerializer(post)
     
-    send_data(post.owner, request.user, post,  timezone.now().strftime("%d/%m/%Y %H:%M:%S") )
+    kafka.send_data(post.owner, request.user, post ) #for logging
 
     return Response(serializer.data)
 

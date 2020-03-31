@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'rest_framework',
     'feedapi',
     'authapi',
@@ -86,8 +85,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'HOST': 'db', 
-        'PORT': 5432,
+        'HOST': os.environ.get("SQL_HOST","db"), 
+        'PORT': os.environ.get("SQL_PORT", "5432"),
     }
 }
 
