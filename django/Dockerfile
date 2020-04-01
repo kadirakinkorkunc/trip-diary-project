@@ -21,6 +21,5 @@ COPY . /code/
 #container listens on the specified network ports at runtime.
 
 
-RUN python manage.py loaddata dumpdata.json
 
 EXPOSE 90
