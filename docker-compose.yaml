@@ -6,7 +6,7 @@ services:
        environment:
         - "POSTGRES_HOST_AUTH_METHOD=trust"
        volumes:
-        - psql-data:/var/lib/postgresql/data
+        - postgres-data:/var/lib/postgresql/data
        ports:
         - 5432:5432
 
@@ -72,4 +72,4 @@ services:
           TZ: "Asia/Istanbul"
         restart: always
 volumes:
-    psql-data:
+    postgres-data:
