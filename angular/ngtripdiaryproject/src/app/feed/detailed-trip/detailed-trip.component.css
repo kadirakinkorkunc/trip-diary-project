@@ -1,5 +1,5 @@
 .navbar{margin-bottom:0;}
-.banner-section{background-image:url("https://static.pexels.com/photos/373912/pexels-photo-373912.jpeg"); background-size:cover; height: 380px; left: 0; position: relative; top: 0; background-position:0; }
+.banner-section{background-image:url("src\assets\detailed-trip-background.jpeg"); background-size:cover; height: 380px; left: 0; position: relative; top: 0; background-position:0; }
 .post-title-block{ margin-top: -200px;}
 .post-title-block h1 {color: #fff; font-size: 85px; font-weight: bold; text-transform: capitalize;}
 .post-title-block li{font-size:20px; color: #fff;}
@@ -17,6 +17,7 @@
 }
 .notes{
   word-wrap: break-word;
+  white-space: pre-wrap;
 }
 .section{
     content: "";

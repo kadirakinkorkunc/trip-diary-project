@@ -35,6 +35,7 @@ class PostList(APIView):
     Creates a post
     """
     post = request.data                          ## copy dictionary to a variable
+    print("post--->",post)
     authenticatedUserDataAsDict =  request.user.__class__.objects.filter(pk=request.user.id).values().first()
     post['owner'] = authenticatedUserDataAsDict        ## attach authenticated user to post end
     serializer = PostSerializer(data = post)      ## serialize the dict

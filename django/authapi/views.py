@@ -2,8 +2,9 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 # UserDetail -> get a user
 class UserDetail(APIView):
@@ -27,6 +28,19 @@ class UserDetail(APIView):
     user = self.get_user(user_id)
     serializer = UserSerializer(user)
     return Response(serializer.data)
+
+
+class AddUser(APIView):
+  permission_classes = [IsAdminUser]
+  authentication_classes = [JSONWebTokenAuthentication]
+
+  def post(self,request,format=None):
+    user = request.data
+    serializer = UserSerializer(data = user)
+    if serializer.is_valid():
+      serializer.save()
+      return Response(serializer.data, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
 
   
 class LoggedInUserDetail(APIView):
