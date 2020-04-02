@@ -24,7 +24,6 @@ docker-compose up --build
 
 #### Volumes
 * `/var/lib/postgresql/data` - Postgres Container has a named volume for keeping data persistent.
-* `/your/file/location` - File location
 
 #### Useful File Locations
 
