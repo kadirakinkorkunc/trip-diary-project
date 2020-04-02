@@ -23,7 +23,7 @@ docker-compose up --build
 ```
 #### Useful Informations
 * `localhost:8080` to access the site.
-* ``localhost:90/admin` to access back-end admin 
+* `localhost:90/admin` to access back-end django admin panel
 * We have 10(1 to 10) user and 1 admin for demonstration. User informations have a pattern like;
   * username : user[index] 
   * password : [index]password[index]
