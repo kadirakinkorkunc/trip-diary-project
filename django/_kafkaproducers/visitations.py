@@ -17,5 +17,4 @@ def send_data(visitor_user: get_user_model(), owner_user: get_user_model(), visi
   try:
     record_metadata = result.get(timeout=10)
   except KafkaError:
-    print("error->",KafkaError.__dict__.values())
     pass

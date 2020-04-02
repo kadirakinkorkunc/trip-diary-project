@@ -49,7 +49,6 @@ export class MainFeedComponent implements OnInit {
     this.authService.getLoggedInUser().pipe(map(data => {
       this.loggedInUser = data;
     })).subscribe(result => { });;
-    console.log("loggedinuser-->", this.loggedInUser);
   }
 
 }

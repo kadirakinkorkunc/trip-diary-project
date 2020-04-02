@@ -32,7 +32,6 @@ export class DetailedTripComponent implements OnInit {
     this.feedService.retrievePost(this.post_id).pipe(map(data => {
       this.post = data;
       this.postOwner = this.post.owner;
-      console.log(this.post.owner.username);
     })).subscribe(
     );
 

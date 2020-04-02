@@ -23,11 +23,8 @@ class PostSerializer(serializers.ModelSerializer):
 
   def create(self, validated_data):
     owner_data = validated_data.pop('owner')
-    print("def(create,owner_data):",owner_data)
     popped_tags = validated_data.pop('tags')
-    print("def(create,tags):",popped_tags)
     username = owner_data.pop('username')
-    print("def(create,username):",username)
     owner = get_user_model().objects.get_or_create(username = username)[0]
     post = Post.objects.create(owner=owner, **validated_data)
     post.tags.set(popped_tags)
