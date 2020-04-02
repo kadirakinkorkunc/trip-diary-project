@@ -8,7 +8,7 @@ These instructions will cover usage information and for the docker containers
 
 ### Prerequisities
 
-In order to run this container you'll need docker installed.
+In order to run these containers you'll need docker installed.
 
 * [Windows](https://docs.docker.com/windows/started)
 * [OS X](https://docs.docker.com/mac/started/)
