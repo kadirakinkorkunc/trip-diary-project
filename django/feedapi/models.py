@@ -22,7 +22,7 @@ class Post(models.Model):
   owner = models.ForeignKey(get_user_model() , null = True, on_delete=models.SET_NULL) # has relation with Member class /one to many/
 
   class Meta:
-    ordering = ['created_at']
+    ordering = ['-created_at']
   
   def __str__(self):
     return self.title

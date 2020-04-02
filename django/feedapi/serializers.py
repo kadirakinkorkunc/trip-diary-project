@@ -16,7 +16,6 @@ class PostSerializer(serializers.ModelSerializer):
         queryset=Tag.objects.all(),
         slug_field='name'
      )
-  #tags = TagSerializer
   owner = UserSerializer()
   class Meta:
     model = Post

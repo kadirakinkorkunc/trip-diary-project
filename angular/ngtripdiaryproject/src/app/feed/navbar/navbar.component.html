@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a href="/"><img width="300px" height="100px" src="assets/logo.png"></a>
+  <a routerLink="/"><img width="300px" height="100px" src="assets/logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,11 +8,11 @@
     <ul class="navbar-nav navbar-right">
       <li id="textAddTrip" class="nav-item active">
 
-        <a class="nav-link" href="/create"><i class="glyphicon glyphicon-plus-sign"></i> <span
+        <a class="nav-link" routerLink="/create"><i class="glyphicon glyphicon-plus-sign"></i> <span
             class="sr-only">(current)</span></a>
       </li>
       <li id="textLogout" class="nav-item">
-        <button  (click)="logout()" type="button"  type="button" class="btn btn-default btn-lg">
+        <button (click)="logout()" type="button" type="button" class="btn btn-default btn-lg">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </button>
       </li>

@@ -3,7 +3,7 @@
 .notes{
   float: left;
   word-wrap: break-word;
-
+  word-break: break-all;
 }
 .content-image{
   float: left;
