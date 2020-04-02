@@ -21,13 +21,22 @@ You need to open a command line in the project folder and start using the projec
 ```shell
 docker-compose up --build
 ```
+#### Useful Informations
+* `localhost:8080` to access the site.
+* ``localhost:90/admin` to access back-end admin 
+* We have 10(1 to 10) user and 1 admin for demonstration. User informations have a pattern like;
+  * username : user[index] 
+  * password : [index]password[index]
+  * you can access as a admin with username: root, password: root 
+
+#### Useful File Locations
+* `/logs/` - In your host file system Spring Boot Kafka Consumer Container has a shared volume for activity logs.
+
 
 #### Volumes
 * `/var/lib/postgresql/data` - Postgres Container has a named volume for keeping data persistent.
 
-#### Useful File Locations
 
-* `/logs/` - In your host file system Spring Boot Kafka Consumer Container has a shared volume for activity logs.
   
 
 ## Built With
