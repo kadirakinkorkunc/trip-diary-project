@@ -46,6 +46,7 @@ docker-compose up --build
 * Spring Framework 2.2.6 ( log4j2 for logging )
 * Kafka
 * Zookeeper
+* PostgreSQL
 
 ## Authors
 
